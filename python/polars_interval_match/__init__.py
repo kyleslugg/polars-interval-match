@@ -11,6 +11,10 @@ PLUGIN_PATH = Path(__file__).parent
 
 def match_intervals(values: IntoExpr, intervals: pl.Series) -> pl.Expr:
     """Match values to intervals."""
+    try:
+        values = values.cast(pl.Float64)
+    except:
+        raise ValueError("values must be castable to Float64")
     intervals = ";".join(intervals.to_list())
     return register_plugin_function(
         plugin_path=PLUGIN_PATH,

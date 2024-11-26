@@ -19,9 +19,7 @@ struct ReferenceIntervals {
 fn match_intervals(values: &[Series], kwargs: ReferenceIntervals) -> Result<Series, PolarsError> {
     let values = &values[0];
     let intervals: String = kwargs.intervals.into();
-
     let interval_matcher = make_interval_match(&intervals);
-
     let return_series = match values.f64() {
         Ok(values) => {
             let mut matched_intervals = Vec::new();
